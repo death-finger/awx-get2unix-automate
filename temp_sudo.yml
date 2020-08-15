@@ -1,0 +1,26 @@
+---
+- hosts: all
+  tasks:
+    - name: check the /etc/sudoer.d/tempsudo
+      file:
+        path: /etc/sudoer.d/tempsudo
+        owner: root
+        group: root
+        mode: 0440
+        state: touch
+      tags:
+        - init
+    - name: create lines
+      lineinfile:
+        line: "{{ USER }} ALL=(ALL) ALL # {{ DATE }}_{{ TICKET }}_{{ OPERATOR }}"
+        insertbefore: EOL
+        path: /etc/sudoer.d/tempsudo
+      tags:
+        - add
+    - name: remove lines
+      lineinfile:
+        line: "{{ USER }} ALL=(ALL) ALL # {{ DATE }}_{{ TICKET }}_{{ OPERATOR }}"
+        path: /etc/sudoers.d/tempsudo
+        state: absent
+      tags:
+        - remove
