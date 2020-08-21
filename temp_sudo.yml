@@ -10,6 +10,16 @@
         state: touch
       tags:
         - add
+
+    - name: remove the existing lines
+      lineinfile:
+        line: "^{{ USER }}.*$"
+        path: /etc/sudoers.d/tempsudo
+        state: absent
+      tags:
+        - remove
+        - add
+
     - name: create lines
       lineinfile:
         line: "{{ USER }} ALL=(ALL) ALL # {{ DATE }}_{{ TICKET }}_{{ OPERATOR }}"
@@ -17,10 +27,3 @@
         path: /etc/sudoers.d/tempsudo
       tags:
         - add
-    - name: remove lines
-      lineinfile:
-        line: "{{ USER }} ALL=(ALL) ALL # {{ DATE }}_{{ TICKET }}_{{ OPERATOR }}"
-        path: /etc/sudoers.d/tempsudo
-        state: absent
-      tags:
-        - remove
