@@ -3,7 +3,7 @@
   tasks:
     - name: check the /etc/sudoer.d/tempsudo
       file:
-        path: /etc/sudoer.d/tempsudo
+        path: /etc/sudoers.d/tempsudo
         owner: root
         group: root
         mode: 0440
@@ -14,7 +14,7 @@
       lineinfile:
         line: "{{ USER }} ALL=(ALL) ALL # {{ DATE }}_{{ TICKET }}_{{ OPERATOR }}"
         insertbefore: EOL
-        path: /etc/sudoer.d/tempsudo
+        path: /etc/sudoers.d/tempsudo
       tags:
         - add
     - name: remove lines
