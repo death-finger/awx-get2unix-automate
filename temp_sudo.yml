@@ -9,7 +9,7 @@
         mode: 0440
         state: touch
       tags:
-        - init
+        - add
     - name: create lines
       lineinfile:
         line: "{{ USER }} ALL=(ALL) ALL # {{ DATE }}_{{ TICKET }}_{{ OPERATOR }}"
